@@ -8,13 +8,16 @@ const input = (props) => {
         input: <input
                 className={classes.InputElement}
                 {...props.elementConfig}
-                value={props.value} />,
+                value={props.value}
+                onChange={props.changed} />,
         textarea: <textarea
                 className={classes.InputElement}
-                {...props.elementConfig}>{props.value}</textarea>,
+                {...props.elementConfig}
+                onChange={props.changed}>{props.value}</textarea>,
         select: <select 
                 className={classes.InputElement}
                 value={props.value}
+                onChange={props.changed}
             >
                 {
                     options.map(option => {

@@ -46,7 +46,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Your Country'
+                    placeholder: 'Your Email'
                 },
                 value: ''
             },
@@ -84,6 +84,12 @@ class ContactData extends Component {
             });
     }
 
+    inputChangedHandler = (event, inputIdentifier) => {
+        let orderForm = {...this.state.orderForm};
+        orderForm[inputIdentifier].value = event.target.value;
+        this.setState(orderForm);
+    }
+
     render() {
         const elements = [] ;
         for (let key in this.state.orderForm) {
@@ -108,7 +114,8 @@ class ContactData extends Component {
                                             key={element.id}
                                             elementType={element.config.elementType}
                                             elementConfig={element.config.elementConfig}
-                                            value={element.config.value} />;
+                                            value={element.config.value}
+                                            changed={(event) => this.inputChangedHandler(event, element.id)} />;
                                     })
                                 }
                                 <Button type="Success" clicked={this.orderHandler}>ORDER</Button>
