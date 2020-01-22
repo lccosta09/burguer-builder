@@ -9,11 +9,57 @@ import classes from './ContactData.css';
 class ContactData extends Component {
 
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Street'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Zip Code'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your Country'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        {value: 'fastest', displayValue: 'Fastest'},
+                        {value: 'cheapest', displayValue: 'Cheapest'}
+                    ]
+                },
+                value: ''
+            }
         },
         loading: false
     }
@@ -39,6 +85,14 @@ class ContactData extends Component {
     }
 
     render() {
+        const elements = [] ;
+        for (let key in this.state.orderForm) {
+            elements.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
+
         return (
             <div className={classes.ContactData}>
                 {
@@ -48,10 +102,15 @@ class ContactData extends Component {
                         <React.Fragment>
                             <h4>Enter your Contact Data</h4>
                             <form>
-                                <Input inputType="input" label="Name" type="text" name="name" placeholder="Your Name" />
-                                <Input type="text" name="email" placeholder="Your Mail" />
-                                <Input type="text" name="street" placeholder="Steet" />
-                                <Input type="text" name="postal" placeholder="Postal Code" />
+                                {
+                                    elements.map(element => {
+                                        return <Input
+                                            key={element.id}
+                                            elementType={element.config.elementType}
+                                            elementConfig={element.config.elementConfig}
+                                            value={element.config.value} />;
+                                    })
+                                }
                                 <Button type="Success" clicked={this.orderHandler}>ORDER</Button>
                             </form>
                         </React.Fragment>
