@@ -4,18 +4,23 @@ import classes from './Input.css';
 const input = (props) => {
     const options = props.elementConfig.options || [];
 
+    let inputClasses = [classes.InputElement];
+    if (props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Invalid);
+    }
+
     const elementTypes = {
         input: <input
-                className={classes.InputElement}
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />,
         textarea: <textarea
-                className={classes.InputElement}
+                className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 onChange={props.changed}>{props.value}</textarea>,
         select: <select 
-                className={classes.InputElement}
+                className={inputClasses.join(' ')}
                 value={props.value}
                 onChange={props.changed}
             >
